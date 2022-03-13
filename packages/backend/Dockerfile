@@ -21,10 +21,11 @@ RUN tar xzf skeleton.tar.gz && rm skeleton.tar.gz
 
 # install sqlite3 dependencies
 RUN apt-get update && \
-    apt-get install -y libsqlite3-dev python3 cmake g++ && \
+    apt-get install -y libsqlite3-dev python3 postgresql cmake g++ && \
     rm -rf /var/lib/apt/lists/* && \
     yarn config set python /usr/bin/python3
-
+RUN apt-get update && apt-get install -y python3 python3-pip
+RUN pip3 install mkdocs-techdocs-core==0.2.2
 RUN yarn install --frozen-lockfile --production --network-timeout 300000 && rm -rf "$(yarn cache dir)"
 
 # Then copy the rest of the backend bundle, along with any other files we might want.
